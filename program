@@ -1,7 +1,7 @@
 from flask import Flask , jsonify,request
 app = Flask(__name__)
 
-@app.route('/checkNum' , methods = ['GET','POST'])
+@app.route('/checkNumber' , methods = ['GET','POST'])
 def index():
     if(request.method == 'POST'):
         req_Json = request.json
