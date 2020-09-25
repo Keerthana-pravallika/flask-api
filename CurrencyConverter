@@ -1,0 +1,32 @@
+from flask import Flask , jsonify,request
+app = Flask(__name__)
+
+
+@app.route('/currency' , methods = ['GET','POST'])
+def index():
+    if(request.method == 'POST'):
+        req_Json = request.json
+        sourceC = req_Json['sourceC'].lower()
+        targetC = req_Json['targetC'].lower()
+        value = req_Json['value']
+        st = conversion(sourceC,targetC,value) 
+        return st      
+    else:
+        return "Request method is GET"
+def conversion(sourceC,targetC,value):
+    #displayFunc()
+    if(sourceC == "rupees" and targetC == "dollars"):
+        return "In Dollars : "+str(value/73)+" $"
+    if(targetC == "rupees" and sourceC == "dollars"):
+        return "In Rupees : Rs "+ str(value*73)
+    if(sourceC == "euro" and targetC == "rupees"):
+        return "In Rupees : Rs "+str(value*85)
+    if(targetC == "euro" and sourceC == "rupees"):
+        return "In Euros : "+ str(value/85)
+    if(targetC == "rupees" and sourceC == "pound"):
+        return "In Rupees : Rs "+ str(value*93)
+    if(sourceC == "rupees" and targetC == "pound"):
+        return "In British Pound : "+str(value/93)
+
+if __name__ == '__main__':
+    app.run(debug=True)
